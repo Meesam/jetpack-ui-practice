@@ -18,11 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.jetpackui.designpractice.classes.NavItem
 import com.jetpackui.designpractice.screens.HomeScreen
 import com.jetpackui.designpractice.screens.ProfileScreen
@@ -41,70 +37,59 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DesignPracticeTheme {
+                val navItems = listOf(
+                    NavItem(title = "Home", Icons.Default.Home),
+                    NavItem(title = "Completed", Icons.Default.Person),
+                    NavItem(title = "Setting", Icons.Default.Settings)
+                )
+                var selectedItem by remember {
+                    mutableIntStateOf(0)
+                }
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        BottomAppNavigation()
+                        NavigationBar(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor =  Color.White,
+                            tonalElevation = 5.dp,
+                            modifier = Modifier
+                                .padding(top = 10.dp)
+
+                        ) {
+                            navItems.forEachIndexed { index, navItem ->
+                                NavigationBarItem(
+                                    selected = selectedItem == index,
+                                    onClick = {
+                                        selectedItem = index
+                                    },
+                                    icon = {
+                                        navItem.icon?.let { Icon(imageVector = it, contentDescription = "Icon") }
+                                    },
+                                    label = {
+                                        Text(text = navItem.title)
+                                    }
+                                )
+                            }
+                        }
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding))
-                    AppNavigation()
+                    ContentScreen(selectedItem)
                 }
             }
         }
     }
 }
 
+
 @Composable
-fun AppNavigation(){
-    val navigationController = rememberNavController()
-    NavHost(navController = navigationController, startDestination = "home" ){
-        composable("home"){
-            HomeScreen()
-        }
-        composable("profile"){
-            ProfileScreen()
-        }
-        composable("setting"){
-            SettingScreen()
-        }
+fun ContentScreen(selectedIndex:Int){
+    when(selectedIndex){
+        0 -> HomeScreen()
+        1 -> ProfileScreen()
+        2 -> SettingScreen()
     }
 }
 
-@Composable
-fun BottomAppNavigation(){
-    val navItems = listOf(
-        NavItem(title = "Home", Icons.Default.Home),
-        NavItem(title = "Completed", Icons.Default.Person),
-        NavItem(title = "Setting", Icons.Default.Settings)
-    )
-
-    var selectedItem by remember {
-        mutableIntStateOf(0)
-    }
-    NavigationBar(
-        containerColor = MaterialTheme.colorScheme.primary,
-        contentColor =  Color.White,
-        tonalElevation = 5.dp,
-        modifier = Modifier
-            .padding(top = 10.dp)
-
-    ) {
-        navItems.forEachIndexed { index, navItem ->
-            NavigationBarItem(
-                selected = selectedItem == index,
-                onClick = {
-                    selectedItem = index
-                },
-                icon = {
-                    navItem.icon?.let { Icon(imageVector = it, contentDescription = "Icon") }
-                },
-                label = {
-                    Text(text = navItem.title)
-                }
-            )
-        }
-    }
-}
