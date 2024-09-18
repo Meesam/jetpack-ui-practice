@@ -18,6 +18,14 @@ fun CategoryList(){
        CategoryItem("Boys"),
        CategoryItem("Toys"),
        CategoryItem("Shoes"),
+       CategoryItem("Jeans"),
+       CategoryItem("Latest trend"),
+       CategoryItem("Kids"),
+       CategoryItem("Men"),
+       CategoryItem("WeMen"),
+       CategoryItem("Boys"),
+       CategoryItem("Toys"),
+       CategoryItem("Shoes"),
        CategoryItem("Jeans")
    )
     LazyRow(

@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocalPostOffice
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.PostAdd
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +35,7 @@ fun AppHeader(){
     }
 
     Row {
-        AppIcon(Icons.Default.PostAdd, "post")
+        AppIcon(Icons.Default.ShoppingCart, "cart")
         SpacerWidth(10.dp)
         AppIcon(Icons.Default.LocalPostOffice, "message")
     }
