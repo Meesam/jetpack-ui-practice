@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
             DesignPracticeTheme {
                 val navItems = listOf(
                     NavItem(title = "Home", Icons.Default.Home),
-                    NavItem(title = "Completed", Icons.Default.Person),
+                    NavItem(title = "Profile", Icons.Default.Person),
                     NavItem(title = "Setting", Icons.Default.Settings)
                 )
                 var selectedItem by remember {
